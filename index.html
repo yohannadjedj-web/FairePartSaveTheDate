@@ -163,11 +163,13 @@
             <div class="col-12 col-md-8">
                 <form id="rsvpForm" class="p-3 border rounded bg-white shadow">
 
+                    <!-- Nom -->
                     <div class="mb-3">
                         <label class="form-label">Nom</label>
                         <input type="text" name="nom" class="form-control" required>
                     </div>
 
+                    <!-- Email -->
                     <div class="mb-3">
                         <label class="form-label">Email</label>
                         <input type="email" name="email" class="form-control" required>
@@ -189,7 +191,14 @@
 
                         <div class="mt-2">
                             <label class="form-label">Nombre de personnes à la Mairie :</label>
-                            <input type="number" name="nombreMairie" min="0" value="0" class="form-control">
+                            <select name="nombreMairie" class="form-select">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
                         </div>
                     </div>
 
@@ -208,10 +217,18 @@
 
                         <div class="mt-2">
                             <label class="form-label">Nombre de personnes à la Salle/Houpa :</label>
-                            <input type="number" name="nombreSalle" min="0" value="0" class="form-control">
+                            <select name="nombreSalle" class="form-select">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
                         </div>
                     </div>
 
+                    <!-- Message -->
                     <div class="mb-3">
                         <label class="form-label">Message (facultatif)</label>
                         <textarea name="message" class="form-control"></textarea>
@@ -222,6 +239,7 @@
             </div>
         </div>
     </section>
+
 
     <!-- Pied de page -->
     <footer class="text-center py-4">
@@ -292,7 +310,7 @@
                 message: form.message.value
             };
 
-            fetch('https://script.google.com/macros/s/AKfycbwmxc-KZigcagCRB9LhldaM0HTWKh7pEDWSGadA7WPRG3i9J0f80hvdfExI3zI7Uiwt/exec', { // <-- Remplace par ton URL Apps Script
+            fetch('https://script.google.com/macros/s/AKfycbwmxc-KZigcagCRB9LhldaM0HTWKh7pEDWSGadA7WPRG3i9J0f80hvdfExI3zI7Uiwt/exec', {
                 method: 'POST',
                 body: JSON.stringify(data)
             })
@@ -308,6 +326,7 @@
                 .catch(err => alert('Erreur : ' + err));
         });
     </script>
+
 
 
 
