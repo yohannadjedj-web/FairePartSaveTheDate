@@ -5,18 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Save The Date - Laurine & Yohann</title>
-
-    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Google Fonts -->
     <link
         href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;700&family=Dancing+Script:wght@400;600&display=swap"
         rel="stylesheet">
-
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
     <style>
         body {
             font-family: 'Playfair Display', serif;
@@ -96,7 +89,6 @@
 
 <body>
 
-    <!-- En-tête -->
     <header class="text-center py-5">
         <h1 class="display-4" style="font-family: 'Great Vibes', cursive;">Laurine ❤️ Yohann</h1>
         <p class="lead">Nous nous marions le 26 mai 2026 !</p>
@@ -105,90 +97,69 @@
 
     <div class="divider"><i class="fa-solid fa-heart"></i></div>
 
-    <!-- Vidéo -->
     <section id="video" class="container text-center py-4">
         <h2 class="mb-3">Un petit mot pour vous</h2>
         <video id="videoMariage" class="rounded shadow" autoplay muted playsinline controls preload="auto">
-            <source src="Videos/video save the date final.mov" type="video/mp4">
+            <source src="Videos/video save the date finale.mp4" type="video/mp4">
             Votre navigateur ne supporte pas la vidéo.
         </video>
-        <p id="mobileNotice" style="display:none; color:#c05c7e; margin-top:10px;">
-            Cliquez sur la vidéo pour activer le son 🔊
-        </p>
+        <p id="mobileNotice" style="display:none; color:#c05c7e; margin-top:10px;">Cliquez sur la vidéo pour activer le
+            son 🔊</p>
     </section>
 
     <div class="divider"><i class="fa-solid fa-city"></i></div>
 
-    <!-- Mairie -->
     <section id="mairie" class="container py-4 text-center">
         <h2>Cérémonie à la Mairie</h2>
         <p>La cérémonie civile aura lieu à <br>la Mairie de Maison Alfort à 14h00.</p>
         <p><strong>Adresse :</strong> 118 Av. du Général de Gaulle, 94700 Maison Alfort</p>
         <div class="d-flex justify-content-center gap-3 mt-3">
             <a href="https://maps.google.com/?q=118+Av.+du+Général+de+Gaulle,+94700+Maisons-Alfort" target="_blank"
-                class="map-btn">
-                <i class="fa-solid fa-location-arrow"></i>
-            </a>
+                class="map-btn"><i class="fa-solid fa-location-arrow"></i></a>
             <a href="https://waze.com/ul?q=118+Av.+du+Général+de+Gaulle,+94700+Maisons-Alfort" target="_blank"
-                class="map-btn">
-                <i class="fa-brands fa-waze"></i>
-            </a>
+                class="map-btn"><i class="fa-brands fa-waze"></i></a>
         </div>
     </section>
 
     <div class="divider"><i class="fa-solid fa-star-of-david"></i></div>
 
-    <!-- Houpa + Salle -->
     <section id="houpa" class="container py-4 text-center">
         <h2>Houpa & Réception <i class="fa-solid fa-star-of-david"></i></h2>
         <p>La cérémonie religieuse et la réception auront lieu à Verrière du 91 à partir de 18h00.</p>
         <p><strong>Adresse :</strong> 3 Rue Marie Marvingt, 91700 Fleury-Mérogis</p>
         <div class="d-flex justify-content-center gap-3 mt-3">
             <a href="https://maps.google.com/?q=3+Rue+Marie+Marvingt,+91700+Fleury-Mérogis" target="_blank"
-                class="map-btn">
-                <i class="fa-solid fa-location-arrow"></i>
-            </a>
-            <a href="https://waze.com/ul?q=3+Rue+Marie+Marvingt,+91700+Fleury-Mérogis" target="_blank" class="map-btn">
-                <i class="fa-brands fa-waze"></i>
-            </a>
+                class="map-btn"><i class="fa-solid fa-location-arrow"></i></a>
+            <a href="https://waze.com/ul?q=3+Rue+Marie+Marvingt,+91700+Fleury-Mérogis" target="_blank"
+                class="map-btn"><i class="fa-brands fa-waze"></i></a>
         </div>
     </section>
 
     <div class="divider"><i class="fa-solid fa-envelope-open-text"></i></div>
 
-    <!-- Formulaire RSVP -->
     <section id="formulaire" class="container py-4">
         <h2 class="text-center mb-3">Confirmez votre présence</h2>
         <div class="row justify-content-center">
             <div class="col-12 col-md-8">
                 <form id="rsvpForm" class="p-3 border rounded bg-white shadow">
-
-                    <!-- Nom -->
                     <div class="mb-3">
                         <label class="form-label">Nom</label>
                         <input type="text" name="nom" class="form-control" required>
                     </div>
-
-                    <!-- Email -->
                     <div class="mb-3">
                         <label class="form-label">Email</label>
                         <input type="email" name="email" class="form-control" required>
                     </div>
-
-                    <!-- Présence Mairie -->
                     <div class="mb-3">
                         <label class="form-label d-block">Présence à la Mairie :</label>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="presenceMairie" id="mairieOui"
-                                value="Oui">
-                            <label class="form-check-label" for="mairieOui">Oui</label>
+                            <input class="form-check-input" type="radio" name="presenceMairie" value="Oui">
+                            <label class="form-check-label">Oui</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="presenceMairie" id="mairieNon"
-                                value="Non" checked>
-                            <label class="form-check-label" for="mairieNon">Non</label>
+                            <input class="form-check-input" type="radio" name="presenceMairie" value="Non" checked>
+                            <label class="form-check-label">Non</label>
                         </div>
-
                         <div class="mt-2">
                             <label class="form-label">Nombre de personnes à la Mairie :</label>
                             <select name="nombreMairie" class="form-select">
@@ -201,23 +172,19 @@
                             </select>
                         </div>
                     </div>
-
-                    <!-- Présence Salle/Houpa -->
                     <div class="mb-3">
                         <label class="form-label d-block">Présence à la Salle/Houpa :</label>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="presenceSalle" id="houpaOui" value="Oui">
-                            <label class="form-check-label" for="houpaOui">Oui</label>
+                            <input class="form-check-input" type="radio" name="presenceSalleHoupa" value="Oui">
+                            <label class="form-check-label">Oui</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="presenceSalle" id="houpaNon" value="Non"
-                                checked>
-                            <label class="form-check-label" for="houpaNon">Non</label>
+                            <input class="form-check-input" type="radio" name="presenceSalleHoupa" value="Non" checked>
+                            <label class="form-check-label">Non</label>
                         </div>
-
                         <div class="mt-2">
                             <label class="form-label">Nombre de personnes à la Salle/Houpa :</label>
-                            <select name="nombreSalle" class="form-select">
+                            <select name="nombreSalleHoupa" class="form-select">
                                 <option value="0">0</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
@@ -227,92 +194,31 @@
                             </select>
                         </div>
                     </div>
-
-                    <!-- Message -->
                     <div class="mb-3">
                         <label class="form-label">Message (facultatif)</label>
                         <textarea name="message" class="form-control"></textarea>
                     </div>
-
                     <button type="submit" class="btn btn-primary w-100">Envoyer</button>
                 </form>
             </div>
         </div>
     </section>
 
-
-    <!-- Pied de page -->
     <footer class="text-center py-4">
-        <p class="mb-0" style="font-family: 'Great Vibes', cursive; font-size: 1.5rem;">
-            Avec tout notre amour 💕
-        </p>
+        <p class="mb-0" style="font-family: 'Great Vibes', cursive; font-size: 1.5rem;">Avec tout notre amour 💕</p>
     </footer>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Script compte à rebours -->
-    <script>
-        const weddingDate = new Date("May 26, 2026 14:00:00").getTime();
-        const countdown = document.getElementById("countdown");
-
-        function updateCountdown() {
-            const now = new Date().getTime();
-            const distance = weddingDate - now;
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-            countdown.innerText = `${days}j ${hours}h ${minutes}m ${seconds}s`;
-        }
-
-        setInterval(updateCountdown, 1000);
-        updateCountdown();
-    </script>
-
-    <script>
-        const video = document.getElementById('videoMariage');
-        const notice = document.getElementById('mobileNotice');
-
-        // Forcer le préchargement et lecture automatique muette
-        window.addEventListener('load', () => {
-            video.load();
-            video.play().catch(() => {
-                // fallback pour mobiles où autoplay peut échouer
-                video.muted = true;
-                video.play();
-                notice.style.display = 'block';
-            });
-        });
-
-        // Gestion du clic pour activer/désactiver le son
-        video.addEventListener('click', () => {
-            if (video.paused) {
-                video.muted = false;
-                video.play();
-            } else {
-                video.pause();
-            }
-        });
-    </script>
     <script>
         const form = document.getElementById('rsvpForm');
+
         form.addEventListener('submit', e => {
             e.preventDefault();
 
-            const data = {
-                nom: form.elements["nom"].value,
-                email: form.elements["email"].value,
-                presenceMairie: form.elements["presenceMairie"].value,
-                nombreMairie: form.elements["nombreMairie"].value,
-                presenceSalle: form.elements["presenceSalle"].value,
-                nombreSalle: form.elements["nombreSalle"].value,
-                message: form.elements["message"].value
-            };
+            const data = new FormData(form);
 
-            fetch('https://script.google.com/macros/s/AKfycbwmxc-KZigcagCRB9LhldaM0HTWKh7pEDWSGadA7WPRG3i9J0f80hvdfExI3zI7Uiwt/exec', {
+            fetch('https://script.google.com/macros/s/AKfycbzvEbQtPH3jfu0Y5LueXxwUmsGYp-1PY1jwTpxoJnhMFFJifeZ3UEe0Sb53FAR2KzAC/exec', {
                 method: 'POST',
-                body: JSON.stringify(data)
+                body: data
             })
                 .then(res => res.json())
                 .then(res => {
@@ -326,11 +232,6 @@
                 .catch(err => alert('Erreur : ' + err));
         });
     </script>
-
-
-
-
-
 
 </body>
 
