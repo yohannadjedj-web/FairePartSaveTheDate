@@ -301,13 +301,13 @@
             e.preventDefault();
 
             const data = {
-                nom: form.nom.value,
-                email: form.email.value,
-                presenceMairie: form.presenceMairie.value,
-                nombreMairie: form.nombreMairie.value,
-                presenceSalle: form.presenceSalle.value,
-                nombreSalle: form.nombreSalle.value,
-                message: form.message.value
+                nom: form.elements["nom"].value,
+                email: form.elements["email"].value,
+                presenceMairie: form.elements["presenceMairie"].value,
+                nombreMairie: form.elements["nombreMairie"].value,
+                presenceSalle: form.elements["presenceSalle"].value,
+                nombreSalle: form.elements["nombreSalle"].value,
+                message: form.elements["message"].value
             };
 
             fetch('https://script.google.com/macros/s/AKfycbwmxc-KZigcagCRB9LhldaM0HTWKh7pEDWSGadA7WPRG3i9J0f80hvdfExI3zI7Uiwt/exec', {
@@ -326,6 +326,7 @@
                 .catch(err => alert('Erreur : ' + err));
         });
     </script>
+
 
 
 
