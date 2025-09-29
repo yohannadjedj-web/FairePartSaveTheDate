@@ -109,7 +109,7 @@
     <section id="video" class="container text-center py-4">
         <h2 class="mb-3">Un petit mot pour vous</h2>
         <video id="videoMariage" class="rounded shadow" autoplay muted playsinline controls preload="auto">
-            <source src="Videos/VideoMariage.mp4" type="video/mp4">
+            <source src="Videos/video save the date final.mov" type="video/mp4">
             Votre navigateur ne supporte pas la vidéo.
         </video>
         <p id="mobileNotice" style="display:none; color:#c05c7e; margin-top:10px;">
@@ -122,7 +122,7 @@
     <!-- Mairie -->
     <section id="mairie" class="container py-4 text-center">
         <h2>Cérémonie à la Mairie</h2>
-        <p>La cérémonie civile aura lieu à la Mairie de Maison Alfort à 14h00.</p>
+        <p>La cérémonie civile aura lieu à <br>la Mairie de Maison Alfort à 14h00.</p>
         <p><strong>Adresse :</strong> 118 Av. du Général de Gaulle, 94700 Maison Alfort</p>
         <div class="d-flex justify-content-center gap-3 mt-3">
             <a href="https://maps.google.com/?q=118+Av.+du+Général+de+Gaulle,+94700+Maisons-Alfort" target="_blank"
@@ -162,28 +162,38 @@
         <div class="row justify-content-center">
             <div class="col-12 col-md-8">
                 <form id="rsvpForm" class="p-3 border rounded bg-white shadow">
+
                     <div class="mb-3">
                         <label class="form-label">Nom</label>
                         <input type="text" name="nom" class="form-control" required>
                     </div>
+
                     <div class="mb-3">
                         <label class="form-label">Email</label>
                         <input type="email" name="email" class="form-control" required>
                     </div>
 
+                    <!-- Présence Mairie -->
                     <div class="mb-3">
                         <label class="form-label d-block">Présence à la Mairie :</label>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="mairie" id="mairieOui" value="Oui">
+                            <input class="form-check-input" type="radio" name="presenceMairie" id="mairieOui"
+                                value="Oui">
                             <label class="form-check-label" for="mairieOui">Oui</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="mairie" id="mairieNon" value="Non"
-                                checked>
+                            <input class="form-check-input" type="radio" name="presenceMairie" id="mairieNon"
+                                value="Non" checked>
                             <label class="form-check-label" for="mairieNon">Non</label>
+                        </div>
+
+                        <div class="mt-2">
+                            <label class="form-label">Nombre de personnes à la Mairie :</label>
+                            <input type="number" name="nombreMairie" min="0" value="0" class="form-control">
                         </div>
                     </div>
 
+                    <!-- Présence Salle/Houpa -->
                     <div class="mb-3">
                         <label class="form-label d-block">Présence à la Salle/Houpa :</label>
                         <div class="form-check form-check-inline">
@@ -194,6 +204,11 @@
                             <input class="form-check-input" type="radio" name="presenceSalle" id="houpaNon" value="Non"
                                 checked>
                             <label class="form-check-label" for="houpaNon">Non</label>
+                        </div>
+
+                        <div class="mt-2">
+                            <label class="form-label">Nombre de personnes à la Salle/Houpa :</label>
+                            <input type="number" name="nombreSalle" min="0" value="0" class="form-control">
                         </div>
                     </div>
 
@@ -262,7 +277,6 @@
             }
         });
     </script>
-    <!-- Script formulaire Google Sheet -->
     <script>
         const form = document.getElementById('rsvpForm');
         form.addEventListener('submit', e => {
@@ -271,12 +285,14 @@
             const data = {
                 nom: form.nom.value,
                 email: form.email.value,
-                presenceMairie: form.mairie.value,
+                presenceMairie: form.presenceMairie.value,
+                nombreMairie: form.nombreMairie.value,
                 presenceSalle: form.presenceSalle.value,
+                nombreSalle: form.nombreSalle.value,
                 message: form.message.value
             };
 
-            fetch('https://script.google.com/macros/s/AKfycbwmxc-KZigcagCRB9LhldaM0HTWKh7pEDWSGadA7WPRG3i9J0f80hvdfExI3zI7Uiwt/exec', { // <-- Remplace par ton URL Apps Script
+            fetch('https://script.google.com/macros/s/TON_SCRIPT_ID/exec', { // <-- Remplace par ton URL Apps Script
                 method: 'POST',
                 body: JSON.stringify(data)
             })
@@ -292,6 +308,7 @@
                 .catch(err => alert('Erreur : ' + err));
         });
     </script>
+
 
 
 
