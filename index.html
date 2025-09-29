@@ -108,7 +108,7 @@
     <!-- Vidéo -->
     <section id="video" class="container text-center py-4">
         <h2 class="mb-3">Un petit mot pour vous</h2>
-        <video id="videoMariage" class="rounded shadow" autoplay muted playsinline controls>
+        <video id="videoMariage" class="rounded shadow" autoplay muted playsinline controls preload="auto">
             <source src="Videos/VideoMariage.mp4" type="video/mp4">
             Votre navigateur ne supporte pas la vidéo.
         </video>
@@ -237,16 +237,22 @@
         updateCountdown();
     </script>
 
-    <!-- Script vidéo play/pause et son -->
     <script>
         const video = document.getElementById('videoMariage');
+        const notice = document.getElementById('mobileNotice');
 
-        video.play().catch(() => {
-            video.muted = true;
-            video.play();
-            document.getElementById('mobileNotice').style.display = 'block';
+        // Forcer le préchargement et lecture automatique muette
+        window.addEventListener('load', () => {
+            video.load();
+            video.play().catch(() => {
+                // fallback pour mobiles où autoplay peut échouer
+                video.muted = true;
+                video.play();
+                notice.style.display = 'block';
+            });
         });
 
+        // Gestion du clic pour activer/désactiver le son
         video.addEventListener('click', () => {
             if (video.paused) {
                 video.muted = false;
