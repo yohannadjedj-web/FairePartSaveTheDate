@@ -2,16 +2,10 @@
 <html lang="fr">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- Open Graph (aperçu sur WhatsApp, Facebook, Messenger...) -->
     <meta property="og:title" content="Save The Date - Laurine & Yohann" />
-    <!-- <meta property="og:image" content="https://orange-sand-0501e2b03.2.azurestaticapps.net/Videos/LogoMariage.jpg" /> -->
-    <!-- <meta property="og:image:type" content="image/jpeg" /> -->
-    <!-- <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="og:url" content="https://orange-sand-0501e2b03.2.azurestaticapps.net" />
-    <meta property="og:type" content="website" /> -->
     <title>Save The Date - Laurine & Yohann</title>
 
     <!-- Fonts & Icons -->
@@ -19,12 +13,9 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;700&family=Dancing+Script:wght@400;600&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <link href="https://fonts.googleapis.com/css2?family=Parisienne&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Allura&display=swap" rel="stylesheet">
-
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
     <style>
         body {
@@ -56,12 +47,14 @@
         header h1 {
             font-family: 'Great Vibes', cursive;
             font-size: 3rem;
+            margin: 0.2rem 0;
         }
 
         header p {
             font-family: 'Dancing Script', cursive;
             font-size: 1.6rem;
             color: #555;
+            margin: 0.4rem 0 0;
         }
 
         .divider {
@@ -70,7 +63,6 @@
             justify-content: center;
             color: #c05c7e;
             font-size: 1.5rem;
-            margin: 2.5rem 0;
         }
 
         .divider::before,
@@ -140,7 +132,7 @@
             text-align: center;
         }
 
-        /* Animation d’apparition */
+        /* fade-up (kept for lower sections) */
         .fade-up {
             opacity: 0;
             transform: translateY(30px);
@@ -204,25 +196,44 @@
             background: #a04060;
         }
 
-        /* Apparition douce et séquentielle pour les prénoms et coeur */
-        .prenom,
-        .heart {
-            opacity: 0;
+        /* ---------- Header: no entrance animations ---------- */
+        /* ensure prenoms and families are visible immediately */
+        .prenom {
             display: inline-block;
-            transform: translateY(10px);
-            animation-fill-mode: forwards;
+            opacity: 1;
+            transform: none;
         }
 
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
+        /* families visible */
+        .families {
+            display: flex;
+            justify-content: space-between;
+            max-width: 900px;
+            margin: 0 auto;
+        }
 
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .family {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.5rem;
+            color: #555;
+        }
+
+        .invite-line {
+            font-size: 1.5rem;
+            text-align: center;
+            margin: 1rem auto 0;
+            opacity: 1;
+            transform: none;
+        }
+
+        /* --- Heart: remove appearance animation but keep heartbeat --- */
+        .heart {
+            display: inline-block;
+            font-size: 2rem;
+            color: #c05c7e;
+            /* only heartbeat animation */
+            animation: heartbeat 2.5s ease-in-out infinite;
+            transform-origin: center;
         }
 
         @keyframes heartbeat {
@@ -249,81 +260,16 @@
             }
         }
 
-        .laurine {
-            animation: fadeInUp 1.5s ease forwards;
-        }
-
-        .yohann {
-            animation: fadeInUp 1.5s ease forwards 2s;
-        }
-
-        .heart {
-            animation: fadeInUp 1.5s ease forwards 4s,
-                heartbeat 2.5s ease-in-out infinite 5.5s;
-            transform-origin: center;
-        }
-
-        /* Styles famille */
-        .family {
-            font-family: 'Dancing Script', cursive;
-            font-size: 1.5rem;
-            color: #555;
-        }
-
-        .family-left {
-            text-align: left;
-        }
-
-        .family-right {
-            text-align: right;
-        }
-
-        .families {
-            display: flex;
-            justify-content: space-between;
-            max-width: 900px;
-            /* margin: 2rem auto 0; */
-            opacity: 0;
-            animation: fadeIn 2s ease forwards 2.2s;
-        }
-
-        /* Encadré invite-line amélioré */
-        .invite-line {
-            font-size: 1.5rem;
-            /* color: #5a4c4d; */
-            /* line-height: 1.8; */
-            /* background: rgba(255, 248, 247, 0.95); */
-            /* border: 2px solid #f5c1d0; */
-            /* border-radius: 25px; */
-            /* padding-bottom: 10%; */
-            /* padding: 2rem 3rem; */
-            display: inline-block;
-            max-width: 700px;
-            margin: 1rem auto 0;
-            /* box-shadow: 0 12px 30px rgba(192, 92, 126, 0.15); */
-            text-align: center;
-            opacity: 0;
-            animation: fadeIn 2s ease forwards 3s;
-        }
-
-        /* wrapper */
+        /* --- SVG & (handwriting) - keep existing tracing but slightly tuned --- */
         .amp-wrapper {
             display: inline-block;
-            width: 3.6rem;
-            /* ajuster la taille */
-            height: 2.2rem;
+            width: 4.8rem;
+            height: 3.2rem;
             vertical-align: middle;
             margin: 0 0.6rem;
-            position: relative;
             line-height: 1;
         }
 
-        /* hide fallback by default, shown only if needed */
-        .amp-fallback {
-            display: none;
-        }
-
-        /* SVG sizing */
         .amp-svg {
             width: 100%;
             height: 100%;
@@ -331,51 +277,42 @@
             display: block;
         }
 
-        /* Base font for the SVG text - uses Great Vibes if loaded */
         .amp-svg .amp-text-stroke,
         .amp-svg .amp-text-fill {
-            font-family: 'Great Vibes', cursive;
+            font-family: 'Allura', cursive;
             font-weight: 400;
-            font-size: 150px;
-            /* relative to viewBox, you can tweak */
+            font-size: 120px;
             letter-spacing: 0;
         }
 
-        /* traced stroke (handwriting) */
         .amp-svg .amp-text-stroke {
             fill: none;
             stroke: #c05c7e;
-            /* stroke color */
-            stroke-width: 2.8;
-            /* thickness of stroke while tracing */
+            stroke-width: 2.2;
             stroke-linecap: round;
             stroke-linejoin: round;
             stroke-dasharray: 1000;
-            /* large value to cover full stroke */
             stroke-dashoffset: 1000;
-            /* animation draws the stroke */
-            animation: draw 5000ms cubic-bezier(.22, .9, .34, 1) 700ms forwards;
+            /* slower draw but keep it optional: it will run once */
+            animation: draw 4.5s cubic-bezier(.22, .9, .34, 1) 700ms forwards;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
         }
 
-        /* fill appears after stroke is drawn */
         .amp-svg .amp-text-fill {
             fill: transparent;
             stroke: none;
             opacity: 0;
-            animation: fillIn 700ms ease 3000ms forwards;
+            animation: fillIn 800ms ease 1500ms forwards;
             filter: drop-shadow(0 4px 8px rgba(192, 92, 126, 0.12));
         }
 
-        /* small blink cursor effect while drawing */
         @keyframes draw {
             to {
                 stroke-dashoffset: 0;
             }
         }
 
-        /* fade from transparent to filled color */
         @keyframes fillIn {
             from {
                 opacity: 0;
@@ -390,23 +327,8 @@
             }
         }
 
-        /* If the font fails to load or SVG unsupported, show fallback & */
-        @supports not (mask: linear-gradient(#000, #000)) {
-            .amp-svg {
-                display: none;
-            }
-
-            .amp-fallback {
-                display: inline-block;
-                font-family: 'Parisienne', cursive;
-                color: #c05c7e;
-                font-size: 2.4rem;
-                padding: 0 0.4rem;
-            }
-        }
-
-        /* Optional responsive tweak: scale on small screens */
-        @media (max-width:480px) {
+        /* responsive tweak */
+        @media (max-width: 480px) {
             .amp-wrapper {
                 width: 4.8rem;
                 height: 3.2rem;
@@ -415,48 +337,101 @@
             .amp-svg .amp-text-stroke,
             .amp-svg .amp-text-fill {
                 font-size: 100px;
-                stroke-width: 2.5;
-                font-family: 'Allura', cursive;
-
+                stroke-width: 2;
             }
+
+            header {
+                padding: 2.5rem 1rem;
+            }
+
+            header h1 {
+                font-size: 2.2rem;
+            }
+
+            .family {
+                font-size: 1.1rem;
+            }
+        }
+
+        /* --- Apparition des prénoms depuis la gauche et la droite --- */
+        @keyframes slideInLeft {
+            0% {
+                opacity: 0;
+                transform: translateX(-60px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            0% {
+                opacity: 0;
+                transform: translateX(60px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .prenom.laurine {
+            opacity: 0;
+            display: inline-block;
+            animation: slideInLeft 1.2s ease-out forwards;
+        }
+
+        .prenom.yohann {
+            opacity: 0;
+            display: inline-block;
+            animation: slideInRight 1.2s ease-out forwards;
+            animation-delay: 1.1s;
+            /* Yohann arrive après Laurine */
+        }
+
+        .styleA {
+            font-family: 'Allura', cursive;
         }
     </style>
 </head>
 
 <body>
-    <header class="text-center animate__animated animate__fadeInDown">
+    <header class="text-center">
         <div class="families">
             <div class="family family-left">Orlyne et Isaac Chriqui</div>
             <div class="family family-right">Chantal et Jean Adjedj</div>
         </div>
+
         <br>
+
         <h1>
             <span class="prenom laurine">Laurine</span>
-            <!-- Animated handwritten ampersand -->
+
+            <!-- Animated handwritten ampersand (kept) -->
             <span class="amp-wrapper" aria-hidden="true">
                 <svg class="amp-svg" viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg" role="img"
                     aria-label="et">
-                    <!-- Outline stroke (traced) -->
                     <text class="amp-text-stroke" x="50%" y="60%" text-anchor="middle"
                         dominant-baseline="middle">&amp;</text>
-                    <!-- Solid fill revealed after stroke animation -->
                     <text class="amp-text-fill" x="50%" y="60%" text-anchor="middle"
                         dominant-baseline="middle">&amp;</text>
                 </svg>
             </span>
+
             <span class="prenom yohann">Yohann</span>
         </h1>
 
-
         <p class="invite-line">
-            Ont le plaisir de vous inviter<br>
+            Ont le plaisir de vous inviter
         </p>
+
         <div id="countdown" class="mt-3 fs-5 text-secondary"></div>
     </header>
 
-    <!-- <div class="divider"><i class="fa-solid fa-heart"></i></div> -->
-    <div class="divider"><span class="heart">❤️</span></div>
-
+    <div class="divider"><span class="heart" aria-hidden="true">❤️</span></div>
 
     <section id="video" class="container text-center py-4 fade-up">
         <div class="position-relative d-inline-block">
@@ -472,13 +447,27 @@
 
     <section id="mairie" class="container py-4 text-center fade-up">
         <h2>Cérémonie à la Mairie</h2>
-        <p>La cérémonie civile aura lieu à <br>la Mairie de Maison Alfort à 14h00.</p>
-        <p><strong>Adresse :</strong> 118 Av. du Général de Gaulle, 94700 Maison Alfort</p>
+        <p>La cérémonie civile aura lieu à <br>la Mairie de Bonneuil-Sur-Marne à 14h00.</p>
+        <p><strong>Adresse :</strong> 7 Rue d'Estienne d'Orves, 94380 Bonneuil-sur-Marne</p>
         <div class="d-flex justify-content-center gap-3 mt-3">
-            <a href="https://maps.google.com/?q=118+Av.+du+Général+de+Gaulle,+94700+Maisons-Alfort" target="_blank"
-                class="map-btn"><i class="fa-solid fa-location-arrow"></i></a>
-            <a href="https://waze.com/ul?q=118+Av.+du+Général+de+Gaulle,+94700+Maisons-Alfort" target="_blank"
-                class="map-btn"><i class="fa-brands fa-waze"></i></a>
+            <a href="https://maps.app.goo.gl/WUcGgj2hD76fo3Ka7?g_st=ac" target="_blank" class="map-btn"><i
+                    class="fa-solid fa-location-arrow"></i></a>
+            <a href="https://ul.waze.com/ul?venue_id=1638888.16323341.433389&overview=yes&utm_campaign=default&utm_source=waze_website&utm_medium=lm_share_location"
+                target="_blank" class="map-btn"><i class="fa-brands fa-waze"></i></a>
+        </div>
+    </section>
+
+    <div class="divider"><i class="fa-solid fa-house-chimney"></i></div>
+    <section id="après mairie" class="container py-4 text-center fade-up">
+        <h2><span class="styleA">A</span>près-Mairie</h2>
+        <p>Retrouvons-nous à Bonneuil-sur-Marne dès 15h30 pour continuer cette belle journée.</p>
+        <p><strong>Adresse :</strong> 75, rue du Mont-Mesly, 94380 Bonneuil-sur-Marne</p>
+
+        <div class="d-flex justify-content-center gap-3 mt-3">
+            <a href="https://maps.app.goo.gl/14WSN6dEvaSqJJoX7" target="_blank" class="map-btn"><i
+                    class="fa-solid fa-location-arrow"></i></a>
+            <a href="https://ul.waze.com/ul?place=ChIJqZKb5p8M5kcR1YoKGq1dlcE&ll=48.77347140%2C2.47342240&navigate=yes&utm_campaign=default&utm_source=waze_website&utm_medium=lm_share_location"
+                target="_blank" class="map-btn"><i class="fa-brands fa-waze"></i></a>
         </div>
     </section>
 
@@ -560,7 +549,8 @@
                     </div>
 
                     <button type="submit" class="btn btn-primary w-100"
-                        style="background-color:#c05c7e;border:none;">Envoyer 💕</button>
+                        style="background-color:#c05c7e;border:none;">Envoyer
+                        💕</button>
                 </form>
             </div>
         </div>
@@ -571,7 +561,7 @@
     </footer>
 
     <script>
-        // Apparition douce au scroll
+        // Apparition douce au scroll (pour les sections portant .fade-up)
         const elements = document.querySelectorAll('.fade-up');
         const observer = new IntersectionObserver(entries => {
             entries.forEach(entry => {
@@ -597,50 +587,54 @@
             });
         }
 
-        // Envoi du formulaire
+        // Envoi du formulaire (exemple : Google Apps Script endpoint)
         const form = document.getElementById('rsvpForm');
-        form.addEventListener('submit', e => {
-            e.preventDefault();
-            const data = new FormData(form);
-            fetch('https://script.google.com/macros/s/AKfycbzvEbQtPH3jfu0Y5LueXxwUmsGYp-1PY1jwTpxoJnhMFFJifeZ3UEe0Sb53FAR2KzAC/exec', {
-                method: 'POST',
-                body: data
-            })
-                .then(res => res.json())
-                .then(res => {
-                    if (res.result === 'success') {
-                        showCustomAlert('Merci ❤️', 'Votre réponse a bien été enregistrée !');
-                        form.reset();
-                    } else {
-                        showCustomAlert('Oups 😕', 'Une erreur est survenue : ' + res.message);
-                    }
+        if (form) {
+            form.addEventListener('submit', e => {
+                e.preventDefault();
+                const data = new FormData(form);
+                fetch('https://script.google.com/macros/s/AKfycbzvEbQtPH3jfu0Y5LueXxwUmsGYp-1PY1jwTpxoJnhMFFJifeZ3UEe0Sb53FAR2KzAC/exec', {
+                    method: 'POST',
+                    body: data
                 })
-                .catch(err => showCustomAlert('Erreur 😢', err.message));
-        });
+                    .then(res => res.json())
+                    .then(res => {
+                        if (res.result === 'success') {
+                            showCustomAlert('Merci ❤️', 'Votre réponse a bien été enregistrée !');
+                            form.reset();
+                        } else {
+                            showCustomAlert('Oups 😕', 'Une erreur est survenue : ' + res.message);
+                        }
+                    })
+                    .catch(err => showCustomAlert('Erreur 😢', err.message));
+            });
+        }
 
         // Gestion vidéo et son uniquement lorsqu'elle est visible
         const video = document.getElementById("videoMariage");
         const soundBtn = document.getElementById("soundBtn");
 
-        const videoObserver = new IntersectionObserver(entries => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    video.play().catch(() => { });
-                    soundBtn.style.display = "block";
-                    videoObserver.unobserve(video);
-                }
-            });
-        }, { threshold: 0.5 });
-
-        videoObserver.observe(video);
+        if (video) {
+            const videoObserver = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        video.play().catch(() => { });
+                        soundBtn.style.display = "block";
+                        videoObserver.unobserve(video);
+                    }
+                });
+            }, { threshold: 0.5 });
+            videoObserver.observe(video);
+        }
 
         function enableSound() {
+            if (!video) return;
             video.muted = false;
             video.play();
             soundBtn.style.display = "none";
         }
 
-        soundBtn.addEventListener("click", enableSound);
+        if (soundBtn) soundBtn.addEventListener("click", enableSound);
     </script>
 </body>
 
