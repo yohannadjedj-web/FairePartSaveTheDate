@@ -21,6 +21,10 @@
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Parisienne&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Allura&display=swap" rel="stylesheet">
+
+
 
     <style>
         body {
@@ -301,6 +305,121 @@
             opacity: 0;
             animation: fadeIn 2s ease forwards 3s;
         }
+
+        /* wrapper */
+        .amp-wrapper {
+            display: inline-block;
+            width: 3.6rem;
+            /* ajuster la taille */
+            height: 2.2rem;
+            vertical-align: middle;
+            margin: 0 0.6rem;
+            position: relative;
+            line-height: 1;
+        }
+
+        /* hide fallback by default, shown only if needed */
+        .amp-fallback {
+            display: none;
+        }
+
+        /* SVG sizing */
+        .amp-svg {
+            width: 100%;
+            height: 100%;
+            overflow: visible;
+            display: block;
+        }
+
+        /* Base font for the SVG text - uses Great Vibes if loaded */
+        .amp-svg .amp-text-stroke,
+        .amp-svg .amp-text-fill {
+            font-family: 'Great Vibes', cursive;
+            font-weight: 400;
+            font-size: 150px;
+            /* relative to viewBox, you can tweak */
+            letter-spacing: 0;
+        }
+
+        /* traced stroke (handwriting) */
+        .amp-svg .amp-text-stroke {
+            fill: none;
+            stroke: #c05c7e;
+            /* stroke color */
+            stroke-width: 2.8;
+            /* thickness of stroke while tracing */
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            stroke-dasharray: 1000;
+            /* large value to cover full stroke */
+            stroke-dashoffset: 1000;
+            /* animation draws the stroke */
+            animation: draw 5000ms cubic-bezier(.22, .9, .34, 1) 700ms forwards;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* fill appears after stroke is drawn */
+        .amp-svg .amp-text-fill {
+            fill: transparent;
+            stroke: none;
+            opacity: 0;
+            animation: fillIn 700ms ease 3000ms forwards;
+            filter: drop-shadow(0 4px 8px rgba(192, 92, 126, 0.12));
+        }
+
+        /* small blink cursor effect while drawing */
+        @keyframes draw {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        /* fade from transparent to filled color */
+        @keyframes fillIn {
+            from {
+                opacity: 0;
+                fill: transparent;
+                transform: scale(0.98);
+            }
+
+            to {
+                opacity: 1;
+                fill: #c05c7e;
+                transform: scale(1);
+            }
+        }
+
+        /* If the font fails to load or SVG unsupported, show fallback & */
+        @supports not (mask: linear-gradient(#000, #000)) {
+            .amp-svg {
+                display: none;
+            }
+
+            .amp-fallback {
+                display: inline-block;
+                font-family: 'Parisienne', cursive;
+                color: #c05c7e;
+                font-size: 2.4rem;
+                padding: 0 0.4rem;
+            }
+        }
+
+        /* Optional responsive tweak: scale on small screens */
+        @media (max-width:480px) {
+            .amp-wrapper {
+                width: 4.8rem;
+                height: 3.2rem;
+            }
+
+            .amp-svg .amp-text-stroke,
+            .amp-svg .amp-text-fill {
+                font-size: 100px;
+                stroke-width: 2.5;
+                font-family: 'Allura', cursive;
+
+            }
+        }
     </style>
 </head>
 
@@ -313,7 +432,18 @@
         <br>
         <h1>
             <span class="prenom laurine">Laurine</span>
-            <span class="heart">❤️</span>
+            <!-- Animated handwritten ampersand -->
+            <span class="amp-wrapper" aria-hidden="true">
+                <svg class="amp-svg" viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg" role="img"
+                    aria-label="et">
+                    <!-- Outline stroke (traced) -->
+                    <text class="amp-text-stroke" x="50%" y="60%" text-anchor="middle"
+                        dominant-baseline="middle">&amp;</text>
+                    <!-- Solid fill revealed after stroke animation -->
+                    <text class="amp-text-fill" x="50%" y="60%" text-anchor="middle"
+                        dominant-baseline="middle">&amp;</text>
+                </svg>
+            </span>
             <span class="prenom yohann">Yohann</span>
         </h1>
 
@@ -324,7 +454,9 @@
         <div id="countdown" class="mt-3 fs-5 text-secondary"></div>
     </header>
 
-    <div class="divider"><i class="fa-solid fa-heart"></i></div>
+    <!-- <div class="divider"><i class="fa-solid fa-heart"></i></div> -->
+    <div class="divider"><span class="heart">❤️</span></div>
+
 
     <section id="video" class="container text-center py-4 fade-up">
         <div class="position-relative d-inline-block">
