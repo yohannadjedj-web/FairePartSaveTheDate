@@ -642,7 +642,7 @@
                         videoObserver.unobserve(video);
                     }
                 });
-            }, { threshold: 0.9 });
+            }, { threshold: 0.5, rootMargin: "0px 0px -200px 0px" });
             videoObserver.observe(video);
         }
 
