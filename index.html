@@ -637,12 +637,15 @@
             const videoObserver = new IntersectionObserver(entries => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        video.play().catch(() => { });
-                        soundBtn.style.display = "block";
-                        videoObserver.unobserve(video);
+                        // attendre 3 secondes avant de jouer
+                        setTimeout(() => {
+                            video.play().catch(() => { });
+                            soundBtn.style.display = "block"; // bouton son si besoin
+                        }, 3000);
+                        observer.unobserve(video);
                     }
                 });
-            }, { threshold: [1] }); // déclenchement quand 80% visible
+            }, { threshold: 0.5 });
             videoObserver.observe(video);
         }
 
