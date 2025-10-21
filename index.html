@@ -642,7 +642,7 @@
                         videoObserver.unobserve(video);
                     }
                 });
-            }, { threshold: 0.5, rootMargin: "0px 0px -200px 0px" });
+            }, { threshold: [1] }); // déclenchement quand 80% visible
             videoObserver.observe(video);
         }
 
