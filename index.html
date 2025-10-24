@@ -142,6 +142,113 @@
             color: white;
         }
 
+        /* --- Formulaire RSVP stylisé --- */
+        .rsvp-card {
+            background: #fff;
+            border: 2px solid #f4cad6;
+            border-radius: 20px;
+            padding: 2rem;
+            font-family: 'Playfair Display', serif;
+            color: #444;
+            background: linear-gradient(180deg, #fff, #fff8f8);
+        }
+
+        .rsvp-section p.text-muted.small {
+            text-align: center;
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.2rem;
+            color: #666 !important;
+        }
+
+        .rsvp-section {
+            border-left: 4px solid #c05c7e30;
+            padding-left: 1rem;
+            margin-bottom: 2rem;
+            animation: fadeIn 0.6s ease both;
+        }
+
+        .rsvp-section h5 {
+            font-family: 'Dancing Script', cursive;
+            color: #c05c7e;
+            font-size: 1.6rem;
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .radio-group label {
+            cursor: pointer;
+            font-weight: 500;
+            color: #555;
+        }
+
+        .rsvp-subsection {
+            border: 1px dashed #c05c7e50;
+            border-radius: 10px;
+            padding: 1rem;
+            margin-top: 0.5rem;
+            background-color: #fff5f7;
+            transition: all 0.3s ease;
+        }
+
+        .rsvp-btn {
+            background-color: #c05c7e;
+            border: none;
+            color: white;
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.4rem;
+            border-radius: 30px;
+            padding: 0.6rem 1.5rem;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .rsvp-btn:hover {
+            background-color: #a13f66;
+            transform: scale(1.03);
+        }
+
+        input[type="text"],
+        input[type="email"],
+        select,
+        textarea {
+            border-radius: 10px;
+            border: 1px solid #e5c1cb;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+            transition: 0.2s;
+        }
+
+        .rsvp-section textarea {
+            display: block;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: #c05c7e;
+            box-shadow: 0 0 5px #c05c7e40;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         footer {
             background: linear-gradient(to top, #ffe9eb, #fff8f5);
             padding: 2rem 1rem;
@@ -505,74 +612,99 @@
 
     <div class="divider"><i class="fa-solid fa-envelope-open-text"></i></div>
 
-    <section id="formulaire" class="container py-4 fade-up">
-        <h2 class="text-center mb-3">Confirmez votre présence</h2>
+    <section id="formulaire" class="container py-5 fade-up">
+        <h2 class="text-center mb-4" style="font-family: 'Great Vibes', cursive; font-size: 2.4rem; color:#c05c7e;">
+            Confirmez votre présence
+        </h2>
+
         <div class="row justify-content-center">
             <div class="col-12 col-md-8">
-                <form id="rsvpForm" class="p-4 border rounded bg-white shadow">
-                    <div class="mb-3">
-                        <label class="form-label">Nom</label>
-                        <input type="text" name="nom" class="form-control" required>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Email</label>
-                        <input type="email" name="email" class="form-control" required>
-                    </div>
+                <form id="rsvpForm" class="rsvp-card shadow-lg">
+                    <!-- MAIRIE -->
+                    <div class="rsvp-section">
+                        <h5><i class="fa-solid fa-landmark"></i> Mairie</h5>
+                        <p class="text-muted small">Souhaitez-vous assister à la cérémonie civile ?</p>
 
-                    <div class="mb-3">
-                        <label class="form-label d-block">Présence à la Mairie :</label>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="presenceMairie" value="Oui">
-                            <label class="form-check-label">Oui</label>
+                        <div class="radio-group mb-3">
+                            <label><input type="radio" name="presenceMairie" value="Oui"> Oui</label>
+                            <label><input type="radio" name="presenceMairie" value="Non" checked> Non</label>
                         </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="presenceMairie" value="Non" checked>
-                            <label class="form-check-label">Non</label>
-                        </div>
-                        <div class="mt-2">
-                            <label class="form-label">Nombre de personnes :</label>
-                            <select name="nombreMairie" class="form-select">
+
+                        <div id="blocMairie" class="rsvp-subsection d-none">
+                            <label class="form-label">Combien de personnes ?</label>
+                            <select name="nombreMairie" class="form-select nombre-select" data-target="nomsMairie">
                                 <option value="0">0</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
                             </select>
+                            <div id="nomsMairie" class="mt-3"></div>
                         </div>
                     </div>
 
-                    <div class="mb-3">
-                        <label class="form-label d-block">Présence à la Salle/Houpa :</label>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="presenceSalleHoupa" value="Oui">
-                            <label class="form-check-label">Oui</label>
+                    <!-- APRÈS-MAIRIE -->
+                    <div class="rsvp-section">
+                        <h5><i class="fa-solid fa-champagne-glasses me-2"></i>Après-Mairie</h5>
+                        <p class="text-muted small">Participerez-vous au vin d'honneur ?</p>
+
+                        <div class="radio-group mb-3">
+                            <label><input type="radio" name="presenceApresMairie" value="Oui"> Oui</label>
+                            <label><input type="radio" name="presenceApresMairie" value="Non" checked> Non</label>
                         </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="presenceSalleHoupa" value="Non" checked>
-                            <label class="form-check-label">Non</label>
-                        </div>
-                        <div class="mt-2">
-                            <label class="form-label">Nombre de personnes :</label>
-                            <select name="nombreSalleHoupa" class="form-select">
+
+                        <div id="blocApresMairie" class="rsvp-subsection d-none">
+                            <label class="form-label">Combien de personnes ?</label>
+                            <select name="nombreApresMairie" class="form-select nombre-select"
+                                data-target="nomsApresMairie">
                                 <option value="0">0</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
                             </select>
+                            <div id="nomsApresMairie" class="mt-3"></div>
                         </div>
                     </div>
 
-                    <div class="mb-3">
-                        <label class="form-label">Message (facultatif)</label>
-                        <textarea name="message" class="form-control"></textarea>
+                    <!-- HOUPA -->
+                    <div class="rsvp-section">
+                        <span style="align-items: center;">
+                            <h5><i class="fa-solid fa-star-of-david me-2"></i>Houpa & Réception</h5>
+                        </span>
+                        <p class="text-muted small">Serez-vous des nôtres pour la cérémonie religieuse et la fête ?</p>
+
+                        <div class="radio-group mb-3">
+                            <label><input type="radio" name="presenceHoupa" value="Oui"> Oui</label>
+                            <label><input type="radio" name="presenceHoupa" value="Non" checked> Non</label>
+                        </div>
+
+                        <div id="blocHoupa" class="rsvp-subsection d-none">
+                            <label class="form-label">Combien de personnes ?</label>
+                            <select name="nombreHoupa" class="form-select nombre-select" data-target="nomsHoupa">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                            <div id="nomsHoupa" class="mt-3"></div>
+                        </div>
                     </div>
 
-                    <button type="submit" class="btn btn-primary w-100"
-                        style="background-color:#c05c7e;border:none;">Envoyer
+                    <!-- MESSAGE -->
+                    <div class="rsvp-section">
+                        <h5><i class="fa-solid fa-pen-fancy me-2"></i>Un petit mot ?</h5>
+                        <textarea name="message" class="form-control" rows="3"
+                            placeholder="Laissez-nous un message...(Facultatif)"></textarea>
+                    </div>
+
+                    <button type="submit" class="rsvp-btn mt-3">
+                        💌 Envoyer ma réponse
                     </button>
                 </form>
             </div>
         </div>
     </section>
+
 
     <footer>
         <p class="mb-0" style="font-family: 'Great Vibes', cursive; font-size: 1.5rem;"><span class="styleA">A</span>vec
@@ -657,7 +789,45 @@
         }
 
         if (soundBtn) soundBtn.addEventListener("click", enableSound);
+
+        document.addEventListener("DOMContentLoaded", () => {
+            // Affiche ou masque les blocs selon le Oui/Non
+            function toggleBloc(radioName, blocId) {
+                const radios = document.querySelectorAll(`input[name="${radioName}"]`);
+                const bloc = document.getElementById(blocId);
+                radios.forEach(r => {
+                    r.addEventListener("change", () => {
+                        bloc.classList.toggle("d-none", r.value !== "Oui" || !r.checked);
+                    });
+                });
+            }
+
+            toggleBloc("presenceMairie", "blocMairie");
+            toggleBloc("presenceApresMairie", "blocApresMairie");
+            toggleBloc("presenceHoupa", "blocHoupa");
+
+            // Génère les champs nom selon le nombre sélectionné
+            document.querySelectorAll(".nombre-select").forEach(select => {
+                select.addEventListener("change", () => {
+                    const targetId = select.dataset.target;
+                    const container = document.getElementById(targetId);
+                    container.innerHTML = "";
+                    const count = parseInt(select.value);
+                    for (let i = 1; i <= count; i++) {
+                        const div = document.createElement("div");
+                        div.className = "fadeIn";
+                        div.innerHTML = `<input type="text" class="form-control mb-2" 
+                           name="${targetId}_personne${i}"
+                           placeholder="Nom de la personne ${i}" required>`;
+                        container.appendChild(div);
+                    }
+                });
+            });
+        });
+
     </script>
+
+
 </body>
 
 </html>
