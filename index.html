@@ -581,7 +581,7 @@
         </div>
     </section>
 
-    <div class="divider"><i class="fa-solid fa-house-chimney"></i></div>
+    <div class="divider"><i class="fa-solid fa-champagne-glasses me-2"></i></div>
     <section id="après mairie" class="container py-4 text-center fade-up">
         <h2><span class="styleA">A</span>près-Mairie</h2>
         <p>Un vin d'honneur suivra la céremonie chez Chantal et Jean Adjedj</p>
@@ -645,7 +645,7 @@
                     <!-- APRÈS-MAIRIE -->
                     <div class="rsvp-section">
                         <h5><i class="fa-solid fa-champagne-glasses me-2"></i>Après-Mairie</h5>
-                        <p class="text-muted small">Participerez-vous au vin d'honneur ?</p>
+                        <p class="text-muted small">Souhaitez-vous assister au vin d'honneur ?</p>
 
                         <div class="radio-group mb-3">
                             <label><input type="radio" name="presenceApresMairie" value="Oui"> Oui</label>
@@ -670,7 +670,7 @@
                         <span style="align-items: center;">
                             <h5><i class="fa-solid fa-star-of-david me-2"></i>Houpa & Réception</h5>
                         </span>
-                        <p class="text-muted small">Serez-vous des nôtres pour la cérémonie religieuse et la fête ?</p>
+                        <p class="text-muted small">Souhaitez-vous assister à la cérémonie religieuse et la fête ?</p>
 
                         <div class="radio-group mb-3">
                             <label><input type="radio" name="presenceHoupa" value="Oui"> Oui</label>
@@ -712,7 +712,7 @@
     </footer>
 
     <script>
-        // Apparition douce au scroll (pour les sections portant .fade-up)
+        // --- Apparition douce au scroll ---
         const elements = document.querySelectorAll('.fade-up');
         const observer = new IntersectionObserver(entries => {
             entries.forEach(entry => {
@@ -726,10 +726,10 @@
             const alertBox = document.createElement('div');
             alertBox.className = 'custom-alert';
             alertBox.innerHTML = `
-        <h4>${title}</h4>
-        <p>${message}</p>
-        <button>Fermer</button>
-      `;
+            <h4>${title}</h4>
+            <p>${message}</p>
+            <button>Fermer</button>
+        `;
             document.body.appendChild(alertBox);
             setTimeout(() => alertBox.classList.add('show'), 50);
             alertBox.querySelector('button').addEventListener('click', () => {
@@ -738,13 +738,13 @@
             });
         }
 
-        // Envoi du formulaire (exemple : Google Apps Script endpoint)
+        // --- Envoi du formulaire (Google Apps Script endpoint) ---
         const form = document.getElementById('rsvpForm');
         if (form) {
             form.addEventListener('submit', e => {
                 e.preventDefault();
                 const data = new FormData(form);
-                fetch('https://script.google.com/macros/s/AKfycbzvEbQtPH3jfu0Y5LueXxwUmsGYp-1PY1jwTpxoJnhMFFJifeZ3UEe0Sb53FAR2KzAC/exec', {
+                fetch('https://script.google.com/macros/s/AKfycbzqesjeTlRb2hyN6byRF9DJG-D_fgUWzkjKhKZniw-fsemA4QOl2p3BZFnxf-9Lpo6i/exec', {
                     method: 'POST',
                     body: data
                 })
@@ -753,6 +753,10 @@
                         if (res.result === 'success') {
                             showCustomAlert('Merci ❤️', 'Votre réponse a bien été enregistrée !');
                             form.reset();
+
+                            // On masque les blocs et vide les sous-champs après reset
+                            document.querySelectorAll('.rsvp-subsection').forEach(b => b.classList.add('d-none'));
+                            document.querySelectorAll('[id^="noms"]').forEach(div => div.innerHTML = '');
                         } else {
                             showCustomAlert('Oups 😕', 'Une erreur est survenue : ' + res.message);
                         }
@@ -761,7 +765,7 @@
             });
         }
 
-        // Gestion vidéo et son uniquement lorsqu'elle est visible
+        // --- Gestion vidéo et son ---
         const video = document.getElementById("videoMariage");
         const soundBtn = document.getElementById("soundBtn");
 
@@ -769,10 +773,9 @@
             const videoObserver = new IntersectionObserver(entries => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        // attendre 3 secondes avant de jouer
                         setTimeout(() => {
                             video.play().catch(() => { });
-                            soundBtn.style.display = "block"; // bouton son si besoin
+                            if (soundBtn) soundBtn.style.display = "block";
                         }, 3000);
                         observer.unobserve(video);
                     }
@@ -785,47 +788,56 @@
             if (!video) return;
             video.muted = false;
             video.play();
-            soundBtn.style.display = "none";
+            if (soundBtn) soundBtn.style.display = "none";
         }
 
         if (soundBtn) soundBtn.addEventListener("click", enableSound);
 
+        // --- Initialisation dynamique des blocs du formulaire ---
         document.addEventListener("DOMContentLoaded", () => {
-            // Affiche ou masque les blocs selon le Oui/Non
-            function toggleBloc(radioName, blocId) {
-                const radios = document.querySelectorAll(`input[name="${radioName}"]`);
-                const bloc = document.getElementById(blocId);
-                radios.forEach(r => {
-                    r.addEventListener("change", () => {
-                        bloc.classList.toggle("d-none", r.value !== "Oui" || !r.checked);
-                    });
-                });
-            }
 
-            toggleBloc("presenceMairie", "blocMairie");
-            toggleBloc("presenceApresMairie", "blocApresMairie");
-            toggleBloc("presenceHoupa", "blocHoupa");
+            // Affiche ou masque les blocs selon le choix Oui / Non
+            document.querySelectorAll('input[type="radio"]').forEach(radio => {
+                radio.addEventListener('change', (e) => {
+                    const name = e.target.name;
+                    const value = e.target.value;
+                    const bloc = document.getElementById('bloc' + name.replace('presence', ''));
+                    if (!bloc) return;
 
-            // Génère les champs nom selon le nombre sélectionné
-            document.querySelectorAll(".nombre-select").forEach(select => {
-                select.addEventListener("change", () => {
-                    const targetId = select.dataset.target;
-                    const container = document.getElementById(targetId);
-                    container.innerHTML = "";
-                    const count = parseInt(select.value);
-                    for (let i = 1; i <= count; i++) {
-                        const div = document.createElement("div");
-                        div.className = "fadeIn";
-                        div.innerHTML = `<input type="text" class="form-control mb-2" 
-                           name="${targetId}_personne${i}"
-                           placeholder="Nom de la personne ${i}" required>`;
-                        container.appendChild(div);
+                    if (value === 'Oui') {
+                        bloc.classList.remove('d-none');
+                    } else {
+                        bloc.classList.add('d-none');
+                        bloc.querySelectorAll('input, select').forEach(el => el.value = '');
+                        const nomsDiv = bloc.querySelector('[id^="noms"]');
+                        if (nomsDiv) nomsDiv.innerHTML = '';
                     }
                 });
             });
-        });
 
+            // Génère les champs de noms selon le nombre choisi
+            document.querySelectorAll('.nombre-select').forEach(select => {
+                select.addEventListener('change', (e) => {
+                    const targetId = e.target.getAttribute('data-target');
+                    const container = document.getElementById(targetId);
+                    container.innerHTML = ''; // reset
+                    const nb = parseInt(e.target.value, 10);
+                    const prefix = targetId.replace('noms', 'nom'); // ex: nomsMairie -> nomMairie
+
+                    for (let i = 1; i <= nb; i++) {
+                        const input = document.createElement('input');
+                        input.type = 'text';
+                        input.name = `${prefix}${i}`;
+                        input.classList.add('form-control', 'mb-2');
+                        input.placeholder = `Nom de la personne ${i}`;
+                        container.appendChild(input);
+                    }
+                });
+            });
+
+        });
     </script>
+
 
 
 </body>
