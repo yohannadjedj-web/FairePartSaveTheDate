@@ -66,7 +66,7 @@ if (video) {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 setTimeout(() => {
-                    video.play().catch(() => {});
+                    video.play().catch(() => { });
                     if (soundBtn) soundBtn.style.display = "block";
                 }, 3000);
                 observer.unobserve(video);
@@ -133,7 +133,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 input.type = 'text';
                 input.name = `${prefix}${i}`;
                 input.classList.add('form-control', 'mb-2');
-                input.placeholder = `Nom de la personne ${i}`;
+                input.placeholder = `Nom et prenom ${i}`;
                 container.appendChild(input);
             }
         });
