@@ -1,4 +1,3 @@
-
 body {
     font-family: 'Playfair Display', serif;
     background: linear-gradient(to bottom right, #fff8f5, #ffe9ef);
@@ -472,4 +471,72 @@ footer {
 
 .styleA {
     font-family: 'Allura', cursive;
+}
+
+/* Spinner pour bouton d'envoi */
+.spinner-border {
+    display: inline-block;
+    vertical-align: middle;
+    width: 1.2rem;
+    height: 1.2rem;
+    border-width: 0.2em;
+    border-top-color: #c05c7e;
+    /* Couleur principale */
+    border-right-color: transparent;
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+    border-style: solid;
+    border-radius: 50%;
+    animation: spin 0.75s linear infinite;
+}
+
+/* Animation pour faire tourner le spinner */
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Bouton désactivé */
+button[disabled] {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    /* espace entre texte et spinner */
+    background-color: #f8f9fa;
+    /* fond clair */
+    color: #999;
+    /* texte gris */
+    pointer-events: none;
+    cursor: not-allowed;
+}
+
+/* Spinner dans le bouton désactivé */
+button[disabled] .spinner-border {
+    border-top-color: #6c757d;
+    /* couleur plus claire pour l'état désactivé */
+}
+
+/* Bouton actif */
+button:not([disabled]) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    background-color: #c05c7e;
+    /* couleur principale */
+    color: white;
+    transition: background-color 0.3s ease;
+}
+
+/* Survol du bouton actif */
+button:not([disabled]):hover {
+    background-color: #a03e63;
+    /* teinte plus foncée */
 }

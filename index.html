@@ -146,6 +146,7 @@ display=swap" rel="stylesheet">
         <div class="row justify-content-center">
             <div class="col-12 col-md-8">
                 <form id="rsvpForm" class="rsvp-card shadow-lg">
+
                     <!-- MAIRIE -->
                     <div class="rsvp-section">
                         <h5><i class="fa-solid fa-landmark"></i> Mairie</h5>
@@ -156,10 +157,12 @@ display=swap" rel="stylesheet">
                             <label><input type="radio" name="presenceMairie" value="Non" checked> Non</label>
                         </div>
 
-                        <div id="blocMairie" class="rsvp-subsection d-none">
-                            <label class="form-label">Combien de personnes ?</label>
-                            <select name="nombreMairie" class="form-select nombre-select" data-target="nomsMairie">
-                                <!-- <option value="0">0</option> -->
+                        <div id="blocMairie" class="rsvp-subsection">
+                            <!-- Select caché par défaut -->
+                            <label class="form-label d-none">Combien de personnes ?</label>
+                            <select name="nombreMairie" class="form-select nombre-select d-none"
+                                data-target="nomsMairie">
+                                <option value="0" selected hidden>Nombre de personnes</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                             </select>
@@ -177,11 +180,11 @@ display=swap" rel="stylesheet">
                             <label><input type="radio" name="presenceApresMairie" value="Non" checked> Non</label>
                         </div>
 
-                        <div id="blocApresMairie" class="rsvp-subsection d-none">
-                            <label class="form-label">Combien de personnes ?</label>
-                            <select name="nombreApresMairie" class="form-select nombre-select"
+                        <div id="blocApresMairie" class="rsvp-subsection">
+                            <label class="form-label d-none">Combien de personnes ?</label>
+                            <select name="nombreApresMairie" class="form-select nombre-select d-none"
                                 data-target="nomsApresMairie">
-                                <!-- <option value="0">0</option> -->
+                                <option value="0" selected hidden>Nombre de personnes</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                             </select>
@@ -191,9 +194,7 @@ display=swap" rel="stylesheet">
 
                     <!-- HOUPA -->
                     <div class="rsvp-section">
-                        <span style="align-items: center;">
-                            <h5><i class="fa-solid fa-star-of-david me-2"></i>Houpa & Réception</h5>
-                        </span>
+                        <h5><i class="fa-solid fa-star-of-david me-2"></i>Houpa & Réception</h5>
                         <p class="text-muted small">Souhaitez-vous assister à la cérémonie religieuse et la fête ?</p>
 
                         <div class="radio-group mb-3">
@@ -201,13 +202,12 @@ display=swap" rel="stylesheet">
                             <label><input type="radio" name="presenceHoupa" value="Non" checked> Non</label>
                         </div>
 
-                        <div id="blocHoupa" class="rsvp-subsection d-none">
-                            <label class="form-label">Combien de personnes ?</label>
-                            <select name="nombreHoupa" class="form-select nombre-select" data-target="nomsHoupa">
-                                <!-- <option value="0">0</option> -->
+                        <div id="blocHoupa" class="rsvp-subsection">
+                            <label class="form-label d-none">Combien de personnes ?</label>
+                            <select name="nombreHoupa" class="form-select nombre-select d-none" data-target="nomsHoupa">
+                                <option value="0" selected hidden>Nombre de personnes</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
-                                <!-- <option value="4">4</option> -->
                             </select>
                             <div id="nomsHoupa" class="mt-3"></div>
                         </div>
@@ -221,12 +221,14 @@ display=swap" rel="stylesheet">
                     </div>
 
                     <button type="submit" class="rsvp-btn mt-3">
-                        Envoyer ma réponse
+                        <span class="btn-text">Envoyer ma réponse</span>
                     </button>
                 </form>
             </div>
         </div>
     </section>
+
+
 
 
     <footer>

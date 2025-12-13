@@ -1,4 +1,6 @@
-// --- Apparition douce au scroll ---
+// ==================================================
+// APPARITION DOUCE AU SCROLL
+// ==================================================
 const elements = document.querySelectorAll('.fade-up');
 const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
@@ -7,8 +9,9 @@ const observer = new IntersectionObserver(entries => {
 }, { threshold: 0.1 });
 elements.forEach(el => observer.observe(el));
 
-
-// --- Notification personnalisée ---
+// ==================================================
+// NOTIFICATION PERSONNALISÉE
+// ==================================================
 function showCustomAlert(title, message) {
     const alertBox = document.createElement('div');
     alertBox.className = 'custom-alert';
@@ -19,22 +22,86 @@ function showCustomAlert(title, message) {
     `;
     document.body.appendChild(alertBox);
     setTimeout(() => alertBox.classList.add('show'), 50);
-
     alertBox.querySelector('button').addEventListener('click', () => {
         alertBox.classList.remove('show');
         setTimeout(() => alertBox.remove(), 400);
     });
 }
 
+// ==================================================
+// VALIDATION : nomX1 OBLIGATOIRE (bloc Mairie uniquement)
+// ==================================================
+function validateRequiredNames() {
+    const firstBloc = document.getElementById('nomsMairie');
+    const firstInput = firstBloc.querySelector('input[name^="nom"]');
+    if (!firstInput.value.trim()) {
+        firstInput.focus();
+        showCustomAlert('Champ obligatoire', 'Merci de renseigner au moins un nom et prénom pour la mairie.');
+        return false;
+    }
+    return true;
+}
 
-// --- Envoi du formulaire (Google Apps Script endpoint) ---
+// ==================================================
+// OUTIL : GÉNÉRATION DES CHAMPS NOM / PRÉNOM
+// ==================================================
+function generateNameFields(container, prefix, count) {
+    container.innerHTML = '';
+    const total = count > 0 ? count : 1; // Toujours au moins 1 champ
+    for (let i = 1; i <= total; i++) {
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.name = `${prefix}${i}`;
+        input.className = 'form-control mb-2';
+        input.placeholder = i === 1 ? 'Nom et prénom' : 'Nom et prénom';
+        container.appendChild(input);
+    }
+}
+
+// ==================================================
+// GESTION VIDÉO & SON
+// ==================================================
+const video = document.getElementById('videoMariage');
+const soundBtn = document.getElementById('soundBtn');
+if (video) {
+    const videoObserver = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                setTimeout(() => {
+                    video.play().catch(() => { });
+                    if (soundBtn) soundBtn.style.display = 'block';
+                }, 3000);
+                videoObserver.unobserve(video);
+            }
+        });
+    }, { threshold: 0.5 });
+    videoObserver.observe(video);
+}
+function enableSound() {
+    if (!video) return;
+    video.muted = false;
+    video.play();
+    if (soundBtn) soundBtn.style.display = 'none';
+}
+if (soundBtn) soundBtn.addEventListener('click', enableSound);
+
+// ==================================================
+// ENVOI DU FORMULAIRE (GOOGLE APPS SCRIPT) AVEC LOADER
+// ==================================================
 const form = document.getElementById('rsvpForm');
 if (form) {
+    const submitBtn = form.querySelector('button[type="submit"]');
+
     form.addEventListener('submit', e => {
         e.preventDefault();
+        if (!validateRequiredNames()) return;
+
+        // Désactiver le bouton et afficher loader
+        submitBtn.disabled = true;
+        const originalText = submitBtn.innerHTML;
+        submitBtn.innerHTML = `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Envoi...`;
 
         const data = new FormData(form);
-
         fetch('https://script.google.com/macros/s/AKfycbzqesjeTlRb2hyN6byRF9DJG-D_fgUWzkjKhKZniw-fsemA4QOl2p3BZFnxf-9Lpo6i/exec', {
             method: 'POST',
             body: data
@@ -43,100 +110,82 @@ if (form) {
             .then(res => {
                 if (res.result === 'success') {
                     showCustomAlert('Merci ❤️', 'Votre réponse a bien été enregistrée !');
-                    form.reset();
-
-                    // On masque les blocs et vide les sous-champs après reset
-                    document.querySelectorAll('.rsvp-subsection').forEach(b => b.classList.add('d-none'));
-                    document.querySelectorAll('[id^="noms"]').forEach(div => div.innerHTML = '');
+                    resetFormState();
                 } else {
                     showCustomAlert('Oups 😕', 'Une erreur est survenue : ' + res.message);
                 }
             })
-            .catch(err => showCustomAlert('Erreur 😢', err.message));
+            .catch(err => showCustomAlert('Erreur 😢', err.message))
+            .finally(() => {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalText;
+            });
     });
 }
 
-
-// --- Gestion vidéo et son ---
-const video = document.getElementById("videoMariage");
-const soundBtn = document.getElementById("soundBtn");
-
-if (video) {
-    const videoObserver = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                setTimeout(() => {
-                    video.play().catch(() => { });
-                    if (soundBtn) soundBtn.style.display = "block";
-                }, 3000);
-                observer.unobserve(video);
-            }
-        });
-    }, { threshold: 0.5 });
-
-    videoObserver.observe(video);
+// ==================================================
+// RESET COMPLET DU FORMULAIRE
+// ==================================================
+function resetFormState() {
+    form.reset();
+    document.querySelectorAll('.rsvp-subsection').forEach(bloc => {
+        const select = bloc.querySelector('.nombre-select');
+        if (select) select.value = '0';
+        const nomsDiv = bloc.querySelector('[id^="noms"]');
+        if (nomsDiv) generateNameFields(nomsDiv, nomsDiv.id.replace('noms', 'nom'), 1);
+        bloc.classList.remove('d-none'); // Nom visible
+        if (select) select.classList.add('d-none'); // Select caché par défaut
+    });
 }
 
-function enableSound() {
-    if (!video) return;
-    video.muted = false;
-    video.play();
-    if (soundBtn) soundBtn.style.display = "none";
-}
+// ==================================================
+// INITIALISATION DYNAMIQUE DU FORMULAIRE
+// ==================================================
+document.addEventListener('DOMContentLoaded', () => {
+    // Initialisation des champs Nom/Prénom pour tous les blocs
+    document.querySelectorAll('.rsvp-subsection').forEach(bloc => {
+        const nomsDiv = bloc.querySelector('[id^="noms"]');
+        if (!nomsDiv) return;
+        const prefix = nomsDiv.id.replace('noms', 'nom');
+        generateNameFields(nomsDiv, prefix, 1);
+        bloc.classList.remove('d-none'); // Nom visible
+        const select = bloc.querySelector('.nombre-select');
+        if (select) select.classList.add('d-none'); // Select caché par défaut
+    });
 
-if (soundBtn) soundBtn.addEventListener("click", enableSound);
-
-
-// --- Initialisation dynamique des blocs du formulaire ---
-document.addEventListener("DOMContentLoaded", () => {
-
-    // Affiche ou masque les blocs selon Oui / Non
+    // Gestion des radios Oui / Non
     document.querySelectorAll('input[type="radio"]').forEach(radio => {
-        radio.addEventListener('change', (e) => {
-            const name = e.target.name;            // ex: presenceMairie
-            const value = e.target.value;          // Oui ou Non
-            const bloc = document.getElementById('bloc' + name.replace('presence', ''));
-
+        radio.addEventListener('change', e => {
+            const name = e.target.name;
+            const value = e.target.value;
+            const blocId = 'bloc' + name.replace('presence', '');
+            const bloc = document.getElementById(blocId);
             if (!bloc) return;
 
+            const select = bloc.querySelector('.nombre-select');
+            const nomsDiv = bloc.querySelector('[id^="noms"]');
+            const prefix = nomsDiv.id.replace('noms', 'nom');
+
             if (value === 'Oui') {
-                bloc.classList.remove('d-none');
-
-                // 👉 Ajout important : générer automatiquement le champ pour 1 personne
-                const select = bloc.querySelector('.nombre-select');
-                if (select) {
-                    select.dispatchEvent(new Event('change'));
-                }
-
+                if (select) select.classList.remove('d-none'); // Affiche le select
+                const nb = parseInt(select.value, 10) || 1;
+                generateNameFields(nomsDiv, prefix, nb);
             } else {
-                bloc.classList.add('d-none');
-                bloc.querySelectorAll('input, select').forEach(el => el.value = '');
-                const nomsDiv = bloc.querySelector('[id^="noms"]');
-                if (nomsDiv) nomsDiv.innerHTML = '';
+                if (select) select.classList.add('d-none'); // Masque le select si Non
+                generateNameFields(nomsDiv, prefix, 1); // Toujours 1 Nom/Prénom
             }
         });
     });
 
-    // Génère les champs pour le nombre de personnes
+    // Changement du nombre de personnes
     document.querySelectorAll('.nombre-select').forEach(select => {
-        select.addEventListener('change', (e) => {
-            const targetId = e.target.getAttribute('data-target'); // ex: nomsMairie
+        select.addEventListener('change', e => {
+            const targetId = e.target.dataset.target;
             const container = document.getElementById(targetId);
-
-            container.innerHTML = ''; // reset
-
+            if (!container) return;
+            const prefix = targetId.replace('noms', 'nom');
             const nb = parseInt(e.target.value, 10);
-            const prefix = targetId.replace('noms', 'nom'); // ex: nomsMairie -> nomMairie
-
-            for (let i = 1; i <= nb; i++) {
-                const input = document.createElement('input');
-                input.type = 'text';
-                input.name = `${prefix}${i}`;
-                input.classList.add('form-control', 'mb-2');
-                input.placeholder = `Nom et prenom ${i}`;
-                container.appendChild(input);
-            }
+            generateNameFields(container, prefix, nb);
         });
     });
-
 });
